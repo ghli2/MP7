@@ -2,8 +2,8 @@ import java.util.Scanner;
 /**
  * Write a description of class Battleship here.
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Rivkin, Li
+ * @version 0.0.0
  */
 public class Battleship
 {
