@@ -170,7 +170,7 @@ public class Battleship
     	return j;
     }
     
-    public static void step1(Battleship computer, int i, int j) {
+    public static void playermove(Battleship computer, int i, int j) {
     	if(computer.guess(i,j) == true) {
             computer.guessBoard[i-1][j-1] = "X";
             computer.playerOptions[i-1][j-1] = 1;
@@ -187,6 +187,322 @@ public class Battleship
             return;
         }
     }
+    
+    public static void aimove1(Battleship computer, Battleship player) {
+        int computerGuessX = 0;
+        int computerGuessY = 0;
+    	while(true)
+        {
+            computerGuessX = (int)(Math.random()*6);
+            computerGuessY = (int)(Math.random()*6);
+            if(!player.playerBoard[computerGuessX][computerGuessY].equals("O") &&
+            !player.playerBoard[computerGuessX][computerGuessY].equals("X"))
+            {
+                if(computer.computeraihelp[computerGuessX][computerGuessY]==0)
+                {
+                    if(player.playerBoard[computerGuessX][computerGuessY].equals("*"))
+                    {
+                        System.out.println("Computer hit!");
+                        player.playerBoard[computerGuessX][computerGuessY] = "X";
+                        System.out.println("Here is your board:");
+                        player.printPlayerBoard();
+                        if(computerGuessY!=5)
+                        {
+                            computer.computeraihelp[computerGuessX][computerGuessY+1]=1;
+                        }
+                        if(computerGuessY!=0)
+                        {
+                            computer.computeraihelp[computerGuessX][computerGuessY-1]=1;
+                        }
+                        if(computerGuessX!=5)
+                        {
+                            computer.computeraihelp[computerGuessX+1][computerGuessY]=1;
+                        }
+                        if(computerGuessX!=0)
+                        {
+                            computer.computeraihelp[computerGuessX-1][computerGuessY]=1;
+                        }
+                        return;
+                    }
+                    else
+                    {
+                        System.out.println("Computer miss!");
+                        player.playerBoard[computerGuessX][computerGuessY] = "O";
+                        System.out.println("Here is your board:");
+                        player.printPlayerBoard();
+                        computer.computeraihelp[computerGuessX][computerGuessY]=1;
+                        if(computerGuessY!=5)
+                        {
+                            computer.computeraihelp[computerGuessX][computerGuessY+1]=1;
+                        }
+                        if(computerGuessY!=0)
+                        {
+                            computer.computeraihelp[computerGuessX][computerGuessY-1]=1;
+                        }
+                        if(computerGuessX!=5)
+                        {
+                            computer.computeraihelp[computerGuessX+1][computerGuessY]=1;
+                        }
+                        if(computerGuessX!=0)
+                        {
+                            computer.computeraihelp[computerGuessX-1][computerGuessY]=1;
+                        }
+                        return;
+                    }
+                }
+            }
+        }
+    }
+    
+    public static void aimove2(Battleship computer, Battleship player) {
+    	int storX = 0;
+    	int storY = 0;
+    	int airandom = 0;
+    	for(int u=0; u<6; u++)
+        {
+            for(int v=0; v<6; v++)
+            {
+                if(player.playerBoard[u][v].equals("X"))
+                {
+                    storX = u;
+                    storY = v;
+                }
+            }
+        }
+        while(true)
+        {
+            airandom = (int)(Math.random()*4);
+            if(airandom == 0)
+            {
+                if(storY!=5)
+                {
+                    if(!player.playerBoard[storX][storY+1].equals("X") &&
+                    !player.playerBoard[storX][storY+1].equals("O"))
+                    {
+                        if(player.playerBoard[storX][storY+1].equals("*"))
+                        {
+                            System.out.println("Computer hit!");
+                            player.playerBoard[storX][storY+1] = "X";
+                            System.out.println("Here is your board:");
+                            player.printPlayerBoard();
+                            return;
+                        }
+                        else
+                        {
+                            System.out.println("Computer miss!");
+                            player.playerBoard[storX][storY+1] = "O";
+                            System.out.println("Here is your board:");
+                            player.printPlayerBoard();
+                            return;
+                        }
+                    }
+                }
+            }
+            if(airandom == 1)
+            {
+                if(storY!=0)
+                {
+                    if(!player.playerBoard[storX][storY-1].equals("X") &&
+                    !player.playerBoard[storX][storY-1].equals("O"))
+                    {
+                        if(player.playerBoard[storX][storY-1].equals("*"))
+                        {
+                            System.out.println("Computer hit!");
+                            player.playerBoard[storX][storY-1] = "X";
+                            System.out.println("Here is your board:");
+                            player.printPlayerBoard();
+                            return;
+                        }
+                        else
+                        {
+                            System.out.println("Computer miss!");
+                            player.playerBoard[storX][storY-1] = "O";
+                            System.out.println("Here is your board:");
+                            player.printPlayerBoard();
+                            return;
+                        }
+                    }
+                }
+            }
+            if(airandom == 2)
+            {
+                if(storX!=5)
+                {
+                    if(!player.playerBoard[storX+1][storY].equals("X") &&
+                    !player.playerBoard[storX+1][storY].equals("O"))
+                    {
+                        if(player.playerBoard[storX+1][storY].equals("*"))
+                        {
+                            System.out.println("Computer hit!");
+                            player.playerBoard[storX+1][storY] = "X";
+                            System.out.println("Here is your board:");
+                            player.printPlayerBoard();
+                            return;
+                        }
+                        else
+                        {
+                            System.out.println("Computer miss!");
+                            player.playerBoard[storX+1][storY] = "O";
+                            System.out.println("Here is your board:");
+                            player.printPlayerBoard();
+                            return;
+                        }
+                    }
+                }
+            }
+            if(airandom == 3)
+            {
+                if(storX!=0)
+                {
+                    if(!player.playerBoard[storX-1][storY].equals("X") &&
+                    !player.playerBoard[storX-1][storY].equals("O"))
+                    {
+                        if(player.playerBoard[storX-1][storY].equals("*"))
+                        {
+                            System.out.println("Computer hit!");
+                            player.playerBoard[storX-1][storY] = "X";
+                            System.out.println("Here is your board:");
+                            player.printPlayerBoard();
+                            return;
+                        }
+                        else
+                        {
+                            System.out.println("Computer miss!");
+                            player.playerBoard[storX-1][storY] = "O";
+                            System.out.println("Here is your board:");
+                            player.printPlayerBoard();
+                            return;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    public static boolean aimove3(Battleship computer, Battleship player, int game, int vertical) {
+    	int storX = 0;
+    	int storY = 0;
+    	int count5 = 0;
+    	int airandom = 0;
+    	while(count5==0)
+        {
+            for(int u=0; u<6; u++)
+            {
+                for(int v=0; v<6; v++)
+                {
+                    if(player.playerBoard[u][v].equals("X"))
+                    {
+                        storX = u;
+                        storY = v;
+                        count5++;
+                    }
+                }
+            }
+        }
+        count5++;
+        while(true)
+        {
+            airandom = (int)(Math.random()*2);
+            if(vertical == 1)
+            {
+                if(airandom == 0)
+                {
+                    if(storX!=4)
+                    {
+                        if(player.playerBoard[storX+1][storY].equals("*"))
+                        {
+                            System.out.println("Computer hit!");
+                            player.playerBoard[storX+1][storY] = "X";
+                            System.out.println("Here is your board:");
+                            player.printPlayerBoard();
+                            game = 2;
+                            return true;
+                        }
+                        else if(player.playerBoard[storX+1][storY].equals("-"))
+                        {
+                            System.out.println("Computer miss!");
+                            player.playerBoard[storX+1][storY] = "O";
+                            System.out.println("Here is your board:");
+                            player.printPlayerBoard();
+                            return false;
+                        }
+                    }
+                }
+                if(airandom == 1)
+                {
+                    if(storX!=0 && storX!=1)
+                    {
+                        if(player.playerBoard[storX-2][storY].equals("*"))
+                        {
+                            System.out.println("Computer hit!");
+                            player.playerBoard[storX-2][storY] = "X";
+                            System.out.println("Here is your board:");
+                            player.printPlayerBoard();
+                            game = 2;
+                            return true;
+                        }
+                        else if(player.playerBoard[storX-2][storY].equals("-"))
+                        {
+                            System.out.println("Computer miss!");
+                            player.playerBoard[storX-2][storY] = "O";
+                            System.out.println("Here is your board:");
+                            player.printPlayerBoard();
+                            return false;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                if(airandom == 0)
+                {
+                    if(storY!=1 && storY!=0)
+                    {
+                        if(player.playerBoard[storX][storY-2].equals("*"))
+                        {
+                            System.out.println("Computer hit!");
+                            player.playerBoard[storX][storY-2] = "X";
+                            System.out.println("Here is your board:");
+                            player.printPlayerBoard();
+                            game = 2;
+                            return true;
+                        }
+                        else if(player.playerBoard[storX][storY-2].equals("-"))
+                        {
+                            System.out.println("Computer miss!");
+                            player.playerBoard[storX][storY-2] = "O";
+                            System.out.println("Here is your board:");
+                            player.printPlayerBoard();
+                            return false;
+                        }
+                    }
+                }
+                if(airandom == 1)
+                {
+                    if(storY!=5)
+                    {
+                        if(player.playerBoard[storX][storY+1].equals("*"))
+                        {
+                            System.out.println("Computer hit!");
+                            player.playerBoard[storX][storY+1] = "X";
+                            System.out.println("Here is your board:");
+                            player.printPlayerBoard();
+                            game = 2;
+                            return true;
+                        }
+                        else if(player.playerBoard[storX][storY+1].equals("-"))
+                        {
+                            System.out.println("Computer miss!");
+                            player.playerBoard[storX][storY+1] = "O";
+                            System.out.println("Here is your board:");
+                            player.printPlayerBoard();
+                            return false;
+                        }
+                    }
+                }
+            }
+        }
+    }
 
     public static void main(String args[])
     {
@@ -195,13 +511,6 @@ public class Battleship
         int game = 0;
         int count1 = 0;
         int count2 = 0;
-        int count3 = 0;
-        int count5 = 0;
-        int computerGuessX = 0;
-        int computerGuessY = 0;
-        int airandom = 0;
-        int storX = 0;
-        int storY = 0;
         Scanner in = new Scanner(System.in);
         Battleship computer = new Battleship();
         System.out.print("Would you like your ship to be vertical(1 for yes, 0 for no): ");
@@ -219,13 +528,13 @@ public class Battleship
         {
             while(count2 == 0)
             {
-                System.out.print("Enter your guess: ");
+                System.out.print("Enter your guess(letter then number(ex. a1)): ");
                 location = in.next();
                 i = xConverter(location.substring(0,1));
                 j = yConverter(location.substring(1, location.length()));
                 if(computer.playerOptions[i-1][j-1]==0)
                 {
-                    step1(computer, i, j);
+                    playermove(computer, i, j);
                     count2++;
                 }
                 else
@@ -263,314 +572,18 @@ public class Battleship
             }
             if(count1 == 0)
             {
-                while(count3 == 0)
-                {
-                    computerGuessX = (int)(Math.random()*6);
-                    computerGuessY = (int)(Math.random()*6);
-                    if(!player.playerBoard[computerGuessX][computerGuessY].equals("O") &&
-                    !player.playerBoard[computerGuessX][computerGuessY].equals("X"))
-                    {
-                        if(computer.computeraihelp[computerGuessX][computerGuessY]==0)
-                        {
-                            if(player.playerBoard[computerGuessX][computerGuessY].equals("*"))
-                            {
-                                System.out.println("Computer hit!");
-                                player.playerBoard[computerGuessX][computerGuessY] = "X";
-                                System.out.println("Here is your board:");
-                                player.printPlayerBoard();
-                                count3++;
-                                if(computerGuessY!=5)
-                                {
-                                    computer.computeraihelp[computerGuessX][computerGuessY+1]=1;
-                                }
-                                if(computerGuessY!=0)
-                                {
-                                    computer.computeraihelp[computerGuessX][computerGuessY-1]=1;
-                                }
-                                if(computerGuessX!=5)
-                                {
-                                    computer.computeraihelp[computerGuessX+1][computerGuessY]=1;
-                                }
-                                if(computerGuessX!=0)
-                                {
-                                    computer.computeraihelp[computerGuessX-1][computerGuessY]=1;
-                                }
-                            }
-                            else
-                            {
-                                System.out.println("Computer miss!");
-                                player.playerBoard[computerGuessX][computerGuessY] = "O";
-                                System.out.println("Here is your board:");
-                                player.printPlayerBoard();
-                                count3++;
-                                computer.computeraihelp[computerGuessX][computerGuessY]=1;
-                                if(computerGuessY!=5)
-                                {
-                                    computer.computeraihelp[computerGuessX][computerGuessY+1]=1;
-                                }
-                                if(computerGuessY!=0)
-                                {
-                                    computer.computeraihelp[computerGuessX][computerGuessY-1]=1;
-                                }
-                                if(computerGuessX!=5)
-                                {
-                                    computer.computeraihelp[computerGuessX+1][computerGuessY]=1;
-                                }
-                                if(computerGuessX!=0)
-                                {
-                                    computer.computeraihelp[computerGuessX-1][computerGuessY]=1;
-                                }
-                            }
-                        }
-                    }
-                }
-                count3 = 0;
+                aimove1(computer, player);
             }
             if(count1 == 1)
             {
-                for(int u=0; u<6; u++)
-                {
-                    for(int v=0; v<6; v++)
-                    {
-                        if(player.playerBoard[u][v].equals("X"))
-                        {
-                            storX = u;
-                            storY = v;
-                        }
-                    }
-                }
-                while(count3==0)
-                {
-                    airandom = (int)(Math.random()*4);
-                    if(airandom == 0)
-                    {
-                        if(storY!=5)
-                        {
-                            if(!player.playerBoard[storX][storY+1].equals("X") &&
-                            !player.playerBoard[storX][storY+1].equals("O"))
-                            {
-                                if(player.playerBoard[storX][storY+1].equals("*"))
-                                {
-                                    System.out.println("Computer hit!");
-                                    player.playerBoard[storX][storY+1] = "X";
-                                    System.out.println("Here is your board:");
-                                    player.printPlayerBoard();
-                                    count3++;
-                                }
-                                else
-                                {
-                                    System.out.println("Computer miss!");
-                                    player.playerBoard[storX][storY+1] = "O";
-                                    System.out.println("Here is your board:");
-                                    player.printPlayerBoard();
-                                    count3++;
-                                }
-                            }
-                        }
-                    }
-                    if(airandom == 1)
-                    {
-                        if(storY!=0)
-                        {
-                            if(!player.playerBoard[storX][storY-1].equals("X") &&
-                            !player.playerBoard[storX][storY-1].equals("O"))
-                            {
-                                if(player.playerBoard[storX][storY-1].equals("*"))
-                                {
-                                    System.out.println("Computer hit!");
-                                    player.playerBoard[storX][storY-1] = "X";
-                                    System.out.println("Here is your board:");
-                                    player.printPlayerBoard();
-                                    count3++;
-                                }
-                                else
-                                {
-                                    System.out.println("Computer miss!");
-                                    player.playerBoard[storX][storY-1] = "O";
-                                    System.out.println("Here is your board:");
-                                    player.printPlayerBoard();
-                                    count3++;
-                                }
-                            }
-                        }
-                    }
-                    if(airandom == 2)
-                    {
-                        if(storX!=5)
-                        {
-                            if(!player.playerBoard[storX+1][storY].equals("X") &&
-                            !player.playerBoard[storX+1][storY].equals("O"))
-                            {
-                                if(player.playerBoard[storX+1][storY].equals("*"))
-                                {
-                                    System.out.println("Computer hit!");
-                                    player.playerBoard[storX+1][storY] = "X";
-                                    System.out.println("Here is your board:");
-                                    player.printPlayerBoard();
-                                    count3++;
-                                }
-                                else
-                                {
-                                    System.out.println("Computer miss!");
-                                    player.playerBoard[storX+1][storY] = "O";
-                                    System.out.println("Here is your board:");
-                                    player.printPlayerBoard();
-                                    count3++;
-                                }
-                            }
-                        }
-                    }
-                    if(airandom == 3)
-                    {
-                        if(storX!=0)
-                        {
-                            if(!player.playerBoard[storX-1][storY].equals("X") &&
-                            !player.playerBoard[storX-1][storY].equals("O"))
-                            {
-                                if(player.playerBoard[storX-1][storY].equals("*"))
-                                {
-                                    System.out.println("Computer hit!");
-                                    player.playerBoard[storX-1][storY] = "X";
-                                    System.out.println("Here is your board:");
-                                    player.printPlayerBoard();
-                                    count3++;
-                                }
-                                else
-                                {
-                                    System.out.println("Computer miss!");
-                                    player.playerBoard[storX-1][storY] = "O";
-                                    System.out.println("Here is your board:");
-                                    player.printPlayerBoard();
-                                    count3++;
-                                }
-                            }
-                        }
-                    }
-                }
-                count3 = 0;
+                aimove2(computer, player);
             }
             if(count1 == 2)
             {
-                while(count5==0)
-                {
-                    for(int u=0; u<6; u++)
-                    {
-                        for(int v=0; v<6; v++)
-                        {
-                            if(player.playerBoard[u][v].equals("X"))
-                            {
-                                storX = u;
-                                storY = v;
-                                count5++;
-                            }
-                        }
-                    }
-                }
-                count5++;
-                while(count3==0)
-                {
-                    airandom = (int)(Math.random()*2);
-                    if(vertical == 1)
-                    {
-                        if(airandom == 0)
-                        {
-                            if(storX!=4)
-                            {
-                                if(player.playerBoard[storX+1][storY].equals("*"))
-                                {
-                                    System.out.println("Computer hit!");
-                                    player.playerBoard[storX+1][storY] = "X";
-                                    System.out.println("Here is your board:");
-                                    player.printPlayerBoard();
-                                    count3++;
-                                    game = 2;
-                                }
-                                else if(player.playerBoard[storX+1][storY].equals("-"))
-                                {
-                                    System.out.println("Computer miss!");
-                                    player.playerBoard[storX+1][storY] = "O";
-                                    System.out.println("Here is your board:");
-                                    player.printPlayerBoard();
-                                    count3++;
-                                }
-                            }
-                        }
-                        if(airandom == 1)
-                        {
-                            if(storX!=0 && storX!=1)
-                            {
-                                if(player.playerBoard[storX-2][storY].equals("*"))
-                                {
-                                    System.out.println("Computer hit!");
-                                    player.playerBoard[storX-2][storY] = "X";
-                                    System.out.println("Here is your board:");
-                                    player.printPlayerBoard();
-                                    count3++;
-                                    game = 2;
-                                }
-                                else if(player.playerBoard[storX-2][storY].equals("-"))
-                                {
-                                    System.out.println("Computer miss!");
-                                    player.playerBoard[storX-2][storY] = "O";
-                                    System.out.println("Here is your board:");
-                                    player.printPlayerBoard();
-                                    count3++;
-                                }
-                            }
-                        }
-                    }
-                    else
-                    {
-                        if(airandom == 0)
-                        {
-                            if(storY!=1 && storY!=0)
-                            {
-                                if(player.playerBoard[storX][storY-2].equals("*"))
-                                {
-                                    System.out.println("Computer hit!");
-                                    player.playerBoard[storX][storY-2] = "X";
-                                    System.out.println("Here is your board:");
-                                    player.printPlayerBoard();
-                                    count3++;
-                                    game = 2;
-                                }
-                                else if(player.playerBoard[storX][storY-2].equals("-"))
-                                {
-                                    System.out.println("Computer miss!");
-                                    player.playerBoard[storX][storY-2] = "O";
-                                    System.out.println("Here is your board:");
-                                    player.printPlayerBoard();
-                                    count3++;
-                                }
-                            }
-                        }
-                        if(airandom == 1)
-                        {
-                            if(storY!=5)
-                            {
-                                if(player.playerBoard[storX][storY+1].equals("*"))
-                                {
-                                    System.out.println("Computer hit!");
-                                    player.playerBoard[storX][storY+1] = "X";
-                                    System.out.println("Here is your board:");
-                                    player.printPlayerBoard();
-                                    count3++;
-                                    game = 2;
-                                }
-                                else if(player.playerBoard[storX][storY+1].equals("-"))
-                                {
-                                    System.out.println("Computer miss!");
-                                    player.playerBoard[storX][storY+1] = "O";
-                                    System.out.println("Here is your board:");
-                                    player.printPlayerBoard();
-                                    count3++;
-                                }
-                            }
-                        }
-                    }
+                if(aimove3(computer, player, game, vertical)) {
+                	game = 2;
                 }
             }
-            count3 = 0;
         }
         count1 = 0;
         if(game == 1)
