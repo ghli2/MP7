@@ -123,48 +123,33 @@ public class Battleship
             System.out.println("");
         }
     }
-
-    public static void Main(String args[])
-    {
-        Scanner in = new Scanner(System.in);
-        Battleship computer = new Battleship();
-        System.out.print("Would you like your ship to be vertical(1 for yes, 0 for no): ");
-        int vertical = in.nextInt();
-        System.out.print("Enter the upper left point of your ship: ");
-        String location = in.next();
-        String x = location.substring(0,1);
-        String y = location.substring(1, location.length());
-        int i = 1;
-        int j = 1;
-        int game = 0;
-        int count1 = 0;
-        int count2 = 0;
-        int count3 = 0;
-        int count5 = 0;
-        int computerGuessX = 0;
-        int computerGuessY = 0;
-        int airandom = 0;
-        int storX = 0;
-        int storY = 0;
-        if(x.equals("A")) {
+    
+    public static int xConverter(String x) {
+    	int i = 0; 
+    	if(x.equals("A") || x.equals("a")) {
             i = 1;
         }
-        else if(x.equals("B")) {
+        else if(x.equals("B") || x.equals("b")) {
             i = 2;
         }
-        else if(x.equals("C")) {
+        else if(x.equals("C") || x.equals("c")) {
             i = 3;
         }
-        else if(x.equals("D")) {
+        else if(x.equals("D") || x.equals("d")) {
             i = 4;
         }
-        else if(x.equals("E")) {
+        else if(x.equals("E") || x.equals("e")) {
             i = 5;
         }
-        else if(x.equals("F")) {
+        else if(x.equals("F") || x.equals("f")) {
             i = 6;
         }
-        if(y.equals("1")) {
+    	return i;
+    }
+    
+    public static int yConverter(String y) {
+    	int j = 0;
+    	if(y.equals("1")) {
             j = 1;
         }
         else if(y.equals("2")) {
@@ -182,6 +167,49 @@ public class Battleship
         else if(y.equals("6")) {
             j = 6;
         }
+    	return j;
+    }
+    
+    public static void step1(Battleship computer, int i, int j) {
+    	if(computer.guess(i,j) == true) {
+            computer.guessBoard[i-1][j-1] = "X";
+            computer.playerOptions[i-1][j-1] = 1;
+            System.out.println("Hit!");
+            System.out.println("Here is your opponent's board:");
+            computer.printGuessBoard();
+            return;
+        } else {
+        	computer.guessBoard[i-1][j-1] = "O";
+            computer.playerOptions[i-1][j-1] = 1;
+            System.out.println("Miss!");
+            System.out.println("Here is your opponent's board:");
+            computer.printGuessBoard();
+            return;
+        }
+    }
+
+    public static void main(String args[])
+    {
+    	int i = 1;
+        int j = 1;
+        int game = 0;
+        int count1 = 0;
+        int count2 = 0;
+        int count3 = 0;
+        int count5 = 0;
+        int computerGuessX = 0;
+        int computerGuessY = 0;
+        int airandom = 0;
+        int storX = 0;
+        int storY = 0;
+        Scanner in = new Scanner(System.in);
+        Battleship computer = new Battleship();
+        System.out.print("Would you like your ship to be vertical(1 for yes, 0 for no): ");
+        int vertical = in.nextInt();
+        System.out.print("Enter the upper left point of your ship: ");
+        String location = in.next();
+        i = xConverter(location.substring(0,1));
+        j = yConverter(location.substring(1, location.length()));
         Battleship player = new Battleship(vertical, i, j);
         System.out.println("Here is your board:");
         player.printPlayerBoard();
@@ -193,68 +221,16 @@ public class Battleship
             {
                 System.out.print("Enter your guess: ");
                 location = in.next();
-                x = location.substring(0,1);
-                y = location.substring(1, location.length());
-                if(x.equals("A") || x.equals("a")) {
-                    i = 1;
-                }
-                else if(x.equals("B") || x.equals("b")) {
-                    i = 2;
-                }
-                else if(x.equals("C") || x.equals("c")) {
-                    i = 3;
-                }
-                else if(x.equals("D") || x.equals("d")) {
-                    i = 4;
-                }
-                else if(x.equals("E") || x.equals("e")) {
-                    i = 5;
-                }
-                else if(x.equals("F") || x.equals("f")) {
-                    i = 6;
-                }
-                if(y.equals("1")) {
-                    j = 1;
-                }
-                else if(y.equals("2")) {
-                    j = 2;
-                }
-                else if(y.equals("3")) {
-                    j = 3;
-                }
-                else if(y.equals("4")) {
-                    j = 4;
-                }
-                else if(y.equals("5")) {
-                    j = 5;
-                }
-                else if(y.equals("6")) {
-                    j = 6;
-                }
+                i = xConverter(location.substring(0,1));
+                j = yConverter(location.substring(1, location.length()));
                 if(computer.playerOptions[i-1][j-1]==0)
                 {
-                    if(computer.guess(i,j) == true)
-                    {
-                        computer.guessBoard[i-1][j-1] = "X";
-                        computer.playerOptions[i-1][j-1] = 1;
-                        System.out.println("Hit!");
-                        System.out.println("Here is your opponent's board:");
-                        computer.printGuessBoard();
-                        count2++;
-                    }
-                    else
-                    {
-                        computer.guessBoard[i-1][j-1] = "O";
-                        computer.playerOptions[i-1][j-1] = 1;
-                        System.out.println("Miss!");
-                        System.out.println("Here is your opponent's board:");
-                        computer.printGuessBoard();
-                        count2++;
-                    }
+                    step1(computer, i, j);
+                    count2++;
                 }
                 else
                 {
-                    System.out.println("You already tried that, dumbass");
+                    System.out.println("You already tried that");
                 }
             }
             count2 = 0;
@@ -607,4 +583,3 @@ public class Battleship
         }
     }
 }
-
