@@ -478,11 +478,6 @@ public class Battleship
             }
         }
     }
-    
-    public static void acceptCommand(String x, int i, int j) {
-    	i = xConverter(x.substring(0,1));
-        j = yConverter(x.substring(1, x.length()));
-    }
 
     public static void main(String args[]) {
     	int i = 1;
@@ -510,7 +505,8 @@ public class Battleship
             while(count2 == 0) {
                 System.out.print("Enter your guess(letter then number(ex. a1)): ");
                 location = in.next();                                                 //accept command could go here
-                acceptCommand(location, i, j);
+                i = xConverter(location.substring(0,1));
+                j = yConverter(location.substring(1, location.length()));
                 if(computer.playerOptions[i-1][j-1]==0) {
                     playermove(computer, i, j);
                     count2++;
