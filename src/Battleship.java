@@ -124,6 +124,7 @@ public class Battleship
         }
     }
     
+    
     public static int xConverter(String x) {
     	int i = 0; 
     	if(x.equals("A") || x.equals("a")) {
@@ -171,14 +172,14 @@ public class Battleship
     }
     
     public static void playermove(Battleship computer, int i, int j) {
-    	if(computer.guess(i,j) == true) {
+    	if(computer.guess(i,j) == true) {  //if hit
             computer.guessBoard[i-1][j-1] = "X";
             computer.playerOptions[i-1][j-1] = 1;
             System.out.println("Hit!");
             System.out.println("Here is your opponent's board:");
             computer.printGuessBoard();
             return;
-        } else {
+        } else {                           //if miss
         	computer.guessBoard[i-1][j-1] = "O";
             computer.playerOptions[i-1][j-1] = 1;
             System.out.println("Miss!");
@@ -193,12 +194,12 @@ public class Battleship
         int computerGuessY = 0;
     	while(true)
         {
-            computerGuessX = (int)(Math.random()*6);
+            computerGuessX = (int)(Math.random()*6);   //randomized guess
             computerGuessY = (int)(Math.random()*6);
             if(!player.playerBoard[computerGuessX][computerGuessY].equals("O") &&
-            !player.playerBoard[computerGuessX][computerGuessY].equals("X"))
+            !player.playerBoard[computerGuessX][computerGuessY].equals("X"))    //makes sure guess not already made
             {
-                if(computer.computeraihelp[computerGuessX][computerGuessY]==0)
+                if(computer.computeraihelp[computerGuessX][computerGuessY]==0)  //makes sure not guessing next to another guess
                 {
                     if(player.playerBoard[computerGuessX][computerGuessY].equals("*"))
                     {
@@ -206,6 +207,7 @@ public class Battleship
                         player.playerBoard[computerGuessX][computerGuessY] = "X";
                         System.out.println("Here is your board:");
                         player.printPlayerBoard();
+                        //below is to avoid adjacent guesses
                         if(computerGuessY!=5)
                         {
                             computer.computeraihelp[computerGuessX][computerGuessY+1]=1;
@@ -231,6 +233,7 @@ public class Battleship
                         System.out.println("Here is your board:");
                         player.printPlayerBoard();
                         computer.computeraihelp[computerGuessX][computerGuessY]=1;
+                        //avoiding adjacent guesses
                         if(computerGuessY!=5)
                         {
                             computer.computeraihelp[computerGuessX][computerGuessY+1]=1;
@@ -384,14 +387,10 @@ public class Battleship
     	int storY = 0;
     	int count5 = 0;
     	int airandom = 0;
-    	while(count5==0)
-        {
-            for(int u=0; u<6; u++)
-            {
-                for(int v=0; v<6; v++)
-                {
-                    if(player.playerBoard[u][v].equals("X"))
-                    {
+    	while(count5==0) {
+            for(int u=0; u<6; u++) {
+                for(int v=0; v<6; v++) {
+                    if(player.playerBoard[u][v].equals("X")) {
                         storX = u;
                         storY = v;
                         count5++;
@@ -400,26 +399,19 @@ public class Battleship
             }
         }
         count5++;
-        while(true)
-        {
+        while(true) {
             airandom = (int)(Math.random()*2);
-            if(vertical == 1)
-            {
-                if(airandom == 0)
-                {
-                    if(storX!=4)
-                    {
-                        if(player.playerBoard[storX+1][storY].equals("*"))
-                        {
+            if(vertical == 1) {
+                if(airandom == 0) {
+                    if(storX!=4) {
+                        if(player.playerBoard[storX+1][storY].equals("*")) {
                             System.out.println("Computer hit!");
                             player.playerBoard[storX+1][storY] = "X";
                             System.out.println("Here is your board:");
                             player.printPlayerBoard();
                             game = 2;
                             return true;
-                        }
-                        else if(player.playerBoard[storX+1][storY].equals("-"))
-                        {
+                        } else if(player.playerBoard[storX+1][storY].equals("-")) {
                             System.out.println("Computer miss!");
                             player.playerBoard[storX+1][storY] = "O";
                             System.out.println("Here is your board:");
@@ -428,21 +420,16 @@ public class Battleship
                         }
                     }
                 }
-                if(airandom == 1)
-                {
-                    if(storX!=0 && storX!=1)
-                    {
-                        if(player.playerBoard[storX-2][storY].equals("*"))
-                        {
+                if(airandom == 1) {
+                    if(storX!=0 && storX!=1) {
+                        if(player.playerBoard[storX-2][storY].equals("*")) {
                             System.out.println("Computer hit!");
                             player.playerBoard[storX-2][storY] = "X";
                             System.out.println("Here is your board:");
                             player.printPlayerBoard();
                             game = 2;
                             return true;
-                        }
-                        else if(player.playerBoard[storX-2][storY].equals("-"))
-                        {
+                        } else if(player.playerBoard[storX-2][storY].equals("-")) {
                             System.out.println("Computer miss!");
                             player.playerBoard[storX-2][storY] = "O";
                             System.out.println("Here is your board:");
@@ -451,24 +438,17 @@ public class Battleship
                         }
                     }
                 }
-            }
-            else
-            {
-                if(airandom == 0)
-                {
-                    if(storY!=1 && storY!=0)
-                    {
-                        if(player.playerBoard[storX][storY-2].equals("*"))
-                        {
+            } else {
+                if(airandom == 0) {
+                    if(storY!=1 && storY!=0) {
+                        if(player.playerBoard[storX][storY-2].equals("*")) {
                             System.out.println("Computer hit!");
                             player.playerBoard[storX][storY-2] = "X";
                             System.out.println("Here is your board:");
                             player.printPlayerBoard();
                             game = 2;
                             return true;
-                        }
-                        else if(player.playerBoard[storX][storY-2].equals("-"))
-                        {
+                        } else if(player.playerBoard[storX][storY-2].equals("-")) {
                             System.out.println("Computer miss!");
                             player.playerBoard[storX][storY-2] = "O";
                             System.out.println("Here is your board:");
@@ -477,21 +457,16 @@ public class Battleship
                         }
                     }
                 }
-                if(airandom == 1)
-                {
-                    if(storY!=5)
-                    {
-                        if(player.playerBoard[storX][storY+1].equals("*"))
-                        {
+                if(airandom == 1) {
+                    if(storY!=5) {
+                        if(player.playerBoard[storX][storY+1].equals("*")) {
                             System.out.println("Computer hit!");
                             player.playerBoard[storX][storY+1] = "X";
                             System.out.println("Here is your board:");
                             player.printPlayerBoard();
                             game = 2;
                             return true;
-                        }
-                        else if(player.playerBoard[storX][storY+1].equals("-"))
-                        {
+                        } else if(player.playerBoard[storX][storY+1].equals("-")) {
                             System.out.println("Computer miss!");
                             player.playerBoard[storX][storY+1] = "O";
                             System.out.println("Here is your board:");
@@ -503,9 +478,13 @@ public class Battleship
             }
         }
     }
+    
+    public static void acceptCommand(String x, int i, int j) {
+    	i = xConverter(x.substring(0,1));
+        j = yConverter(x.substring(1, x.length()));
+    }
 
-    public static void main(String args[])
-    {
+    public static void main(String args[]) {
     	int i = 1;
         int j = 1;
         int game = 0;
@@ -513,10 +492,11 @@ public class Battleship
         int count2 = 0;
         Scanner in = new Scanner(System.in);
         Battleship computer = new Battleship();
+        //initial placement and setup
         System.out.print("Would you like your ship to be vertical(1 for yes, 0 for no): ");
-        int vertical = in.nextInt();
+        int vertical = in.nextInt();                                                  //nonstandard accpet command could go here
         System.out.print("Enter the upper left point of your ship: ");
-        String location = in.next();
+        String location = in.next();                                                  //accept command could go here
         i = xConverter(location.substring(0,1));
         j = yConverter(location.substring(1, location.length()));
         Battleship player = new Battleship(vertical, i, j);
@@ -524,74 +504,59 @@ public class Battleship
         player.printPlayerBoard();
         System.out.println("Here is your opponent's board:");
         computer.printGuessBoard();
-        while(game == 0)
-        {
-            while(count2 == 0)
-            {
+        //most of the game
+        while(game == 0) {
+        	//player guess and move
+            while(count2 == 0) {
                 System.out.print("Enter your guess(letter then number(ex. a1)): ");
-                location = in.next();
-                i = xConverter(location.substring(0,1));
-                j = yConverter(location.substring(1, location.length()));
-                if(computer.playerOptions[i-1][j-1]==0)
-                {
+                location = in.next();                                                 //accept command could go here
+                acceptCommand(location, i, j);
+                if(computer.playerOptions[i-1][j-1]==0) {
                     playermove(computer, i, j);
                     count2++;
-                }
-                else
-                {
+                } else {
                     System.out.println("You already tried that");
                 }
             }
             count2 = 0;
             count1 = 0;
-            for(int u=0; u<6; u++)
-            {
-                for(int v=0; v<6; v++)
-                {
-                    if(computer.guessBoard[u][v].equals("X"))
-                    {
+            //checks to see if player won
+            for(int u=0; u<6; u++) {
+                for(int v=0; v<6; v++) {
+                    if(computer.guessBoard[u][v].equals("X")) {
                         count1++;
                     }
                 }
             }
-            if(count1 == 3)
-            {
+            if(count1 == 3) {
                 game = 1;
             }
             count1 = 0;
             //ai below
-            for(int u=0; u<6; u++)
-            {
-                for(int v=0; v<6; v++)
-                {
-                    if(player.playerBoard[u][v].equals("X"))
-                    {
+            for(int u=0; u<6; u++) {
+                for(int v=0; v<6; v++) {
+                    if(player.playerBoard[u][v].equals("X")) {
                         count1++;
                     }
                 }
             }
-            if(count1 == 0)
-            {
+            if(count1 == 0) {
                 aimove1(computer, player);
             }
-            if(count1 == 1)
-            {
+            if(count1 == 1) {
                 aimove2(computer, player);
             }
-            if(count1 == 2)
-            {
+            if(count1 == 2) {
                 if(aimove3(computer, player, game, vertical)) {
                 	game = 2;
                 }
             }
         }
         count1 = 0;
-        if(game == 1)
-        {
+        if(game == 1) {
             System.out.print("Congrats you are a winner");
         }
-        if(game == 2)
-        {
+        if(game == 2) {
             System.out.print("You lost to a computer");
         }
     }
