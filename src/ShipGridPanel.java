@@ -19,19 +19,22 @@ class ShipGridPanel extends JPanel {
         W = x;
         H = y;
         buttons = new ShipButton[W][H];
-        System.out.println("cuck");
         initButtons();
     }
     private void initButtons() {
         for (int i = 0; i < W; ++i)
             for (int j = 0; j < H; ++j) {
-                this.add(new ShipButton(i,j,ship, new AbstractAction(){
-                    public void actionPerformed(ActionEvent e) {
-                        System.out.println("cuck");
-                    }
-                }));
+                this.add(new ShipButton(i,j,ship, new Temp(i,j)));
             }
                 
     }
-    
+    class Temp extends AbstractAction {
+        int x,y;
+        Temp(int x, int y) {
+            this.x=x;this.y=y;
+        }
+        public void actionPerformed(ActionEvent e) {
+            System.out.printf("(%d,%d)\n", x,y);
+        }
+    }
 }

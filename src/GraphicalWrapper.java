@@ -43,7 +43,6 @@ class GraphicalWrapper {
 
         gameContainer.add(playerGrid);
         gameContainer.add(computerGrid);
-        System.out.println("Cuck"); 
         //mainPanel.add(menu);
         mainPanel.add(gameContainer);
         
