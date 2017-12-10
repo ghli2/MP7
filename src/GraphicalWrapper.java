@@ -1,105 +1,62 @@
+import javax.swing.*;
+import javax.imageio.*;
 import java.awt.*;
 import java.awt.event.*;
-import javax.swing.*;
+import java.util.*;
+class GraphicalWrapper {
+    static final int W = 6, H = 6;
+    javax.swing.Timer refreshTimer;
 
-/**
- * Battleship graphical wrapper
- *
- * @author George Li
- * @version 0.0.0
- */
-public class GraphicalWrapper extends JPanel implements Runnable {
-    int w =8; h =8;
+    JFrame frame;
+
+    JPanel mainPanel;
+    JPanel menu;
+    JPanel instructions;
+    JPanel gameContainer;
+    JPanel computerGrid;
+    JPanel playerGrid;
     
-    /** timer as tool for rudimentery graphical refreshing */
-    javax.swing.Timer t;
+    Battleship player;
+    Battleship computer;
 
-    /** Panel to contain game. */
-    private JPanel gamePanel;
-    
-    /** Panel to contain options. */
-    private JPanel optionsPanel;
 
-    /** Battleships. */
-    private Battleship player, computer;
-    
-    /** Buttons. */
-    ShipButton[][][] buttons = new ShipButton[2][w][h];
+    GraphicalWrapper() {
+        player = new Battleship();
+        computer = new Battleship();
 
-    ImageIcon Blank;
-    Image Blnk;
-    Image Token;
-
-    public GraphicalWrapper(Battleship player, Battleship computer) {
-
-        this.player = new Battleship();
-        this.computer = new Battleship();
-
-        try {
-            Blnk = ImageIo.read(getClass().getResource("img//blank.png"));
-            Blank = new ImageIcon(Blnk);
-            HitToken = ImageIO.read(getClass().getResource("img//hitToken.png"));
-            MissToken = ImageIO.read(getClass().getResource("img//missToken.png"));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        setLayout(new GridLayout(8,8));
-        for(int s = 0; s < 2; ++s)
-        for (int i = 0; i < w; ++i)
-            for (int j = 0; j < h; ++j) {
-                acts[i][j] = new SpotAction(i,j, s == 0 player);
-                ShipButton temp = new ShipButton(s == 0 ? acts[i,j] : null);
-                buttons[s][i][j] = temp;
-                this.add(temp);
-        } 
+        frame = new JFrame();
+        frame.setSize(1400,700);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setTitle("Battleship");
         
+        mainPanel = new JPanel();
+        mainPanel.setLayout(new CardLayout());
         
+        menu = new JPanel();
+        menu.setLayout(new GridLayout(1,5));
+        
+        gameContainer = new JPanel();
+        gameContainer.setLayout(new GridLayout(1,2));
+
+        computerGrid = new ShipGridPanel(W, H, computer);
+        playerGrid = new ShipGridPanel(W, H, player);
+
+        gameContainer.add(playerGrid);
+        gameContainer.add(computerGrid);
+        System.out.println("Cuck"); 
+        //mainPanel.add(menu);
+        mainPanel.add(gameContainer);
+        
+        frame.add(mainPanel);
     }
-    public void run() {
-        ActionListener refreshAction = new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                refresh();
+    private void show() {
+        frame.setVisible(true);
+    }
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                new GraphicalWrapper().show();
             }
-        };
-        
-        t = new javax.swing.Timer(5, refreshAction);
+        });
     }
-    
-    public void refresh() {
-        for (int s = 0; s < 2; ++s)
-        for (int i = 0; i < w; ++i)
-        for (int j = 0; j < h; ++j) {
-            buttons[s][i][j].setIcon(Blank);
-            if (button[s][i][j].getStatus() !=
- 
-    public static void main(string[] args) {
-        JFrame f = new JFrame();
-        f.add(new GraphicalWrapper);
-        f.setSize(700,700);
-        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        f.setTitle("Battleship");
-        f.setVisible(true);
-    }
-    
-    class ShipButton extends JButton {
-        Image img;
-        
-        public void setImg(Image i) {
-            img = i;
-        }
-        public void removeImage() {
-            img = Blnk;
-        }
-        public ShipButton(Action a) {
-            super(a);
-        }
-        public void paintComponent(Graphics g) {
-            super.paintComponent(g);
-            g.drawImage(img,getWidth()/2-30,getHeight()/2-30,null);
-        }
-    } 
-    
-    class SpotAction extends AbstractAction {
-        int x,y;
-        
 }
