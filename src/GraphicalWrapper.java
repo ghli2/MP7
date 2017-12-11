@@ -10,15 +10,20 @@ class GraphicalWrapper {
     JFrame frame;
 
     JPanel mainPanel;
+
     JPanel menu;
-    JPanel instructions;
+    GridBagConstraints saneMenuConstraints;
+    JButton start;
+    JButton instructions;
+    JButton credits;
+    Object[] optionStack;
+    Action menuAction;
+
     JPanel gameContainer;
     JPanel computerGrid;
     JPanel playerGrid;
     
-    Battleship player;
     Battleship computer;
-
 
     GraphicalWrapper() {
         player = new Battleship();
@@ -32,25 +37,25 @@ class GraphicalWrapper {
         mainPanel = new JPanel();
         mainPanel.setLayout(new CardLayout());
         
-        JButton start = new JButton(new AbstractAction() {
+        start = new JButton(new AbstractAction() {
             public void actionPerformed(ActionEvent e) {
                 ((CardLayout)mainPanel.getLayout()).show(mainPanel, "game");
             }
         });
         
-        JButton instructions = new JButton(new AbstractAction() {
+        instructions = new JButton(new AbstractAction() {
             public void actionPerformed(ActionEvent e) {
                 JOptionPane.showMessageDialog(menu,"In the placement phase, select a square and a direction to place you battleships on the left side.\nIn the battle phase, select a location to attack on the right side.\nPress \"m\" for menu during the game.","Instructions",JOptionPane.INFORMATION_MESSAGE,null);
             }
         });
-        JButton credits = new JButton(new AbstractAction() {
+        credits = new JButton(new AbstractAction() {
             public void actionPerformed(ActionEvent e) {
                 JOptionPane.showMessageDialog(menu,"Graphics: George Li\nBattleship Logic: Michael Rivkin\nLiscenced under the GPLv3 2017","Credits",JOptionPane.INFORMATION_MESSAGE,null);
             }
         });
 
-        Object[] optionStack = {instructions, credits}; 
-        Action menuAction = new AbstractAction() {
+        optionStack = {instructions, credits}; 
+        menuAction = new AbstractAction() {
             public void actionPerformed(ActionEvent e) {
                 JOptionPane.showMessageDialog(menu,optionStack,"Menu",JOptionPane.PLAIN_MESSAGE,null);
             }
@@ -64,7 +69,7 @@ class GraphicalWrapper {
 
         menu = new JPanel();
 
-        GridBagConstraints saneMenuConstraints = new GridBagConstraints();
+        saneMenuConstraints = new GridBagConstraints();
         saneMenuConstraints.gridwidth = GridBagConstraints.REMAINDER;
         saneMenuConstraints.fill = GridBagConstraints.HORIZONTAL;
 
@@ -77,7 +82,7 @@ class GraphicalWrapper {
         gameContainer.setLayout(new GridLayout(1,2));
 
         computerGrid = new ShipGridPanel(W, H, computer);
-        playerGrid = new ShipGridPanel(W, H, player);
+        playerGrid = new ShipGridPanel(W, H, computer);
 
         gameContainer.add(playerGrid);
         gameContainer.add(computerGrid);
@@ -90,7 +95,7 @@ class GraphicalWrapper {
         frame.add(mainPanel);
     }
     private void gameStart() {
-        show()
+        show();
         //game code here 
     }
     private void show() {
