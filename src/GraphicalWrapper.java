@@ -32,9 +32,47 @@ class GraphicalWrapper {
         mainPanel = new JPanel();
         mainPanel.setLayout(new CardLayout());
         
-        menu = new JPanel();
-        menu.setLayout(new GridLayout(1,5));
+        JButton start = new JButton(new AbstractAction() {
+            public void actionPerformed(ActionEvent e) {
+                ((CardLayout)mainPanel.getLayout()).show(mainPanel, "game");
+            }
+        });
         
+        JButton instructions = new JButton(new AbstractAction() {
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(menu,"In the placement phase, select a square and a direction to place you battleships on the left side.\nIn the battle phase, select a location to attack on the right side.\nPress \"m\" for menu during the game.","Instructions",JOptionPane.INFORMATION_MESSAGE,null);
+            }
+        });
+        JButton credits = new JButton(new AbstractAction() {
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(menu,"Graphics: George Li\nBattleship Logic: Michael Rivkin\nLiscenced under the GPLv3 2017","Credits",JOptionPane.INFORMATION_MESSAGE,null);
+            }
+        });
+
+        Object[] optionStack = {instructions, credits}; 
+        Action menuAction = new AbstractAction() {
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(menu,optionStack,"Menu",JOptionPane.PLAIN_MESSAGE,null);
+            }
+        };
+
+
+
+        start.setText("Start");
+        instructions.setText("Instructions");
+        credits.setText("Credits");
+
+        menu = new JPanel();
+
+        GridBagConstraints saneMenuConstraints = new GridBagConstraints();
+        saneMenuConstraints.gridwidth = GridBagConstraints.REMAINDER;
+        saneMenuConstraints.fill = GridBagConstraints.HORIZONTAL;
+
+        menu.setLayout(new GridBagLayout());
+        menu.add(start, saneMenuConstraints);
+        menu.add(instructions, saneMenuConstraints);
+        menu.add(credits, saneMenuConstraints);
+                
         gameContainer = new JPanel();
         gameContainer.setLayout(new GridLayout(1,2));
 
@@ -43,10 +81,17 @@ class GraphicalWrapper {
 
         gameContainer.add(playerGrid);
         gameContainer.add(computerGrid);
-        //mainPanel.add(menu);
-        mainPanel.add(gameContainer);
+        gameContainer.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("M"), "menuPopup");
+        gameContainer.getActionMap().put("menuPopup", menuAction);
+
+        mainPanel.add(menu, "menu");
+        mainPanel.add(gameContainer, "game");
         
         frame.add(mainPanel);
+    }
+    private void gameStart() {
+        show()
+        //game code here 
     }
     private void show() {
         frame.setVisible(true);
@@ -58,4 +103,4 @@ class GraphicalWrapper {
             }
         });
     }
-}
+ }
