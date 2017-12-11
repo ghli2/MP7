@@ -26,7 +26,6 @@ class GraphicalWrapper {
     Battleship computer;
 
     GraphicalWrapper() {
-        player = new Battleship();
         computer = new Battleship();
 
         frame = new JFrame();
@@ -54,7 +53,7 @@ class GraphicalWrapper {
             }
         });
 
-        optionStack = {instructions, credits}; 
+        optionStack = new Object[] {instructions, credits}; 
         menuAction = new AbstractAction() {
             public void actionPerformed(ActionEvent e) {
                 JOptionPane.showMessageDialog(menu,optionStack,"Menu",JOptionPane.PLAIN_MESSAGE,null);
