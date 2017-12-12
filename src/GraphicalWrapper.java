@@ -90,7 +90,7 @@ class GraphicalWrapper {
 
         //button initialization
         credits = new JButton(new InfoButtonAction(menu,
-"Graphics: George Li\nBattleship Logic: Michael Rivkin\nLiscenced under the GPLv3 2017","Credits",JOptionPane.INFORMATION_MESSAGE));
+"Graphics: George Li\nBattleship Logic: Michael Rivkin\nLiscenced under the There's No Liscence Liscence 2017","Credits",JOptionPane.INFORMATION_MESSAGE));
         
         //button initialization
         quit = new JButton(new AbstractAction() {
