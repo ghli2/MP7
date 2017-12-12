@@ -176,15 +176,15 @@ public class Battleship
             computer.guessBoard[i-1][j-1] = "X";
             computer.playerOptions[i-1][j-1] = 1;
             System.out.println("Hit!");
-            System.out.println("Here is your opponent's board:");
-            computer.printGuessBoard();
+//            System.out.println("Here is your opponent's board:");
+//            computer.printGuessBoard();
             return;
         } else {                           //if miss
         	computer.guessBoard[i-1][j-1] = "O";
             computer.playerOptions[i-1][j-1] = 1;
             System.out.println("Miss!");
-            System.out.println("Here is your opponent's board:");
-            computer.printGuessBoard();
+//            System.out.println("Here is your opponent's board:");
+//            computer.printGuessBoard();
             return;
         }
     }
@@ -230,8 +230,8 @@ public class Battleship
                     {
                         System.out.println("Computer miss!");
                         player.playerBoard[computerGuessX][computerGuessY] = "O";
-                        System.out.println("Here is your board:");
-                        player.printPlayerBoard();
+//                        System.out.println("Here is your board:");
+//                        player.printPlayerBoard();
                         computer.computeraihelp[computerGuessX][computerGuessY]=1;
                         //avoiding adjacent guesses
                         if(computerGuessY!=5)
@@ -286,16 +286,16 @@ public class Battleship
                         {
                             System.out.println("Computer hit!");
                             player.playerBoard[storX][storY+1] = "X";
-                            System.out.println("Here is your board:");
-                            player.printPlayerBoard();
+//                            System.out.println("Here is your board:");
+//                            player.printPlayerBoard();
                             return;
                         }
                         else
                         {
                             System.out.println("Computer miss!");
                             player.playerBoard[storX][storY+1] = "O";
-                            System.out.println("Here is your board:");
-                            player.printPlayerBoard();
+//                            System.out.println("Here is your board:");
+//                            player.printPlayerBoard();
                             return;
                         }
                     }
@@ -312,16 +312,16 @@ public class Battleship
                         {
                             System.out.println("Computer hit!");
                             player.playerBoard[storX][storY-1] = "X";
-                            System.out.println("Here is your board:");
-                            player.printPlayerBoard();
+//                            System.out.println("Here is your board:");
+//                            player.printPlayerBoard();
                             return;
                         }
                         else
                         {
                             System.out.println("Computer miss!");
                             player.playerBoard[storX][storY-1] = "O";
-                            System.out.println("Here is your board:");
-                            player.printPlayerBoard();
+//                            System.out.println("Here is your board:");
+//                            player.printPlayerBoard();
                             return;
                         }
                     }
@@ -338,16 +338,16 @@ public class Battleship
                         {
                             System.out.println("Computer hit!");
                             player.playerBoard[storX+1][storY] = "X";
-                            System.out.println("Here is your board:");
-                            player.printPlayerBoard();
+//                            System.out.println("Here is your board:");
+//                            player.printPlayerBoard();
                             return;
                         }
                         else
                         {
                             System.out.println("Computer miss!");
                             player.playerBoard[storX+1][storY] = "O";
-                            System.out.println("Here is your board:");
-                            player.printPlayerBoard();
+//                            System.out.println("Here is your board:");
+//                            player.printPlayerBoard();
                             return;
                         }
                     }
@@ -364,16 +364,16 @@ public class Battleship
                         {
                             System.out.println("Computer hit!");
                             player.playerBoard[storX-1][storY] = "X";
-                            System.out.println("Here is your board:");
-                            player.printPlayerBoard();
+//                            System.out.println("Here is your board:");
+//                            player.printPlayerBoard();
                             return;
                         }
                         else
                         {
                             System.out.println("Computer miss!");
                             player.playerBoard[storX-1][storY] = "O";
-                            System.out.println("Here is your board:");
-                            player.printPlayerBoard();
+//                            System.out.println("Here is your board:");
+//                            player.printPlayerBoard();
                             return;
                         }
                     }
@@ -407,15 +407,15 @@ public class Battleship
                         if(player.playerBoard[storX+1][storY].equals("*")) {
                             System.out.println("Computer hit!");
                             player.playerBoard[storX+1][storY] = "X";
-                            System.out.println("Here is your board:");
-                            player.printPlayerBoard();
+//                            System.out.println("Here is your board:");
+//                            player.printPlayerBoard();
                             game = 2;
                             return true;
                         } else if(player.playerBoard[storX+1][storY].equals("-")) {
                             System.out.println("Computer miss!");
                             player.playerBoard[storX+1][storY] = "O";
-                            System.out.println("Here is your board:");
-                            player.printPlayerBoard();
+//                            System.out.println("Here is your board:");
+//                            player.printPlayerBoard();
                             return false;
                         }
                     }
@@ -425,15 +425,15 @@ public class Battleship
                         if(player.playerBoard[storX-2][storY].equals("*")) {
                             System.out.println("Computer hit!");
                             player.playerBoard[storX-2][storY] = "X";
-                            System.out.println("Here is your board:");
-                            player.printPlayerBoard();
+//                            System.out.println("Here is your board:");
+//                            player.printPlayerBoard();
                             game = 2;
                             return true;
                         } else if(player.playerBoard[storX-2][storY].equals("-")) {
                             System.out.println("Computer miss!");
                             player.playerBoard[storX-2][storY] = "O";
-                            System.out.println("Here is your board:");
-                            player.printPlayerBoard();
+//                            System.out.println("Here is your board:");
+//                            player.printPlayerBoard();
                             return false;
                         }
                     }
@@ -444,15 +444,15 @@ public class Battleship
                         if(player.playerBoard[storX][storY-2].equals("*")) {
                             System.out.println("Computer hit!");
                             player.playerBoard[storX][storY-2] = "X";
-                            System.out.println("Here is your board:");
-                            player.printPlayerBoard();
+//                            System.out.println("Here is your board:");
+//                            player.printPlayerBoard();
                             game = 2;
                             return true;
                         } else if(player.playerBoard[storX][storY-2].equals("-")) {
                             System.out.println("Computer miss!");
                             player.playerBoard[storX][storY-2] = "O";
-                            System.out.println("Here is your board:");
-                            player.printPlayerBoard();
+//                            System.out.println("Here is your board:");
+//                            player.printPlayerBoard();
                             return false;
                         }
                     }
@@ -462,15 +462,15 @@ public class Battleship
                         if(player.playerBoard[storX][storY+1].equals("*")) {
                             System.out.println("Computer hit!");
                             player.playerBoard[storX][storY+1] = "X";
-                            System.out.println("Here is your board:");
-                            player.printPlayerBoard();
+//                            System.out.println("Here is your board:");
+//                            player.printPlayerBoard();
                             game = 2;
                             return true;
                         } else if(player.playerBoard[storX][storY+1].equals("-")) {
                             System.out.println("Computer miss!");
                             player.playerBoard[storX][storY+1] = "O";
-                            System.out.println("Here is your board:");
-                            player.printPlayerBoard();
+//                            System.out.println("Here is your board:");
+//                            player.printPlayerBoard();
                             return false;
                         }
                     }
@@ -495,10 +495,10 @@ public class Battleship
         i = xConverter(location.substring(0,1));
         j = yConverter(location.substring(1, location.length()));
         Battleship player = new Battleship(vertical, i, j);
-        System.out.println("Here is your board:");
-        player.printPlayerBoard();
-        System.out.println("Here is your opponent's board:");
-        computer.printGuessBoard();
+//        System.out.println("Here is your board:");
+//        player.printPlayerBoard();
+//        System.out.println("Here is your opponent's board:");
+//        computer.printGuessBoard();
         //most of the game
         while(game == 0) {
         	//player guess and move
