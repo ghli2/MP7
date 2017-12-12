@@ -7,24 +7,23 @@ import java.util.*;
 class ShipGridPanel extends JPanel {
     final int W;
     final int H;
+    final boolean isComp;
     Battleship ship;
     ShipButton[][] buttons;
-    //0 = computer
-    //1 = human
-    int mode;
 
-    ShipGridPanel(int x, int y, Battleship b) {
+    ShipGridPanel(int x, int y, Battleship b, boolean comp) {
         this.setLayout(new GridLayout(x,y));
         ship = b;
         W = x;
         H = y;
+        isComp = comp;
         buttons = new ShipButton[W][H];
         initButtons();
     }
     private void initButtons() {
         for (int i = 0; i < W; ++i)
             for (int j = 0; j < H; ++j) {
-                this.add(new ShipButton(i,j,ship, new Temp(i,j)));
+                this.add(new ShipButton(i,j,ship, isComp, new Temp(i,j)));
             }
                 
     }
@@ -34,6 +33,8 @@ class ShipGridPanel extends JPanel {
             this.x=x;this.y=y;
         }
         public void actionPerformed(ActionEvent e) {
+            //this gets called every time the button is pressed
+            //modify as you see fit
             System.out.printf("(%d,%d)\n", x,y);
         }
     }

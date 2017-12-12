@@ -80,8 +80,8 @@ class GraphicalWrapper {
         gameContainer = new JPanel();
         gameContainer.setLayout(new GridLayout(1,2));
 
-        computerGrid = new ShipGridPanel(W, H, computer);
-        playerGrid = new ShipGridPanel(W, H, computer);
+        computerGrid = new ShipGridPanel(W, H, computer, true);
+        playerGrid = new ShipGridPanel(W, H, computer, false);
 
         gameContainer.add(playerGrid);
         gameContainer.add(computerGrid);
