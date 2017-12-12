@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.event.*;
+//culls the number of the wierd class files you
+//get when compiling code with anonymous classes
 class InfoButtonAction extends AbstractAction{
     Object msg;
     JComponent parent;

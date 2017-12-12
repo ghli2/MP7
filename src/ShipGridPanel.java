@@ -23,6 +23,8 @@ class ShipGridPanel extends JPanel {
         initButtons();
     }
     void setShip(Battleship ship) {
+        //sets the ship for this and
+        //all child components
         this.ship = ship;
         for (ShipButton[] row : buttons)
             for (ShipButton b: row)
@@ -30,8 +32,9 @@ class ShipGridPanel extends JPanel {
         repaint();
     }
     private void initButtons() {
-        for (int j = 1; j <= W; ++j)
-            for (int i = 1; i <= H; ++i) {
+        //makes the buttons
+        for (int i = 1; i <= H; ++i)
+            for (int j = 1; j <= W; ++j) {
                 ShipButton temp = new ShipButton(i,j,ship, isComp, new BattleshipAction(i,j,isComp,parent));
                 buttons[i-1][j-1] = temp;
                 this.add(temp);

@@ -1,5 +1,6 @@
 import java.io.*;
 import javax.swing.*;
+//class to turn a text area into a output stream
 class CustomOutputStream extends OutputStream {
     private JTextArea textArea;
     public CustomOutputStream(JTextArea textArea) {

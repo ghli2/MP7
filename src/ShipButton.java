@@ -13,6 +13,7 @@ class ShipButton extends JButton {
     static Image MissToken;
     static HashMap<String, Image> map;
     
+    //load the resources, b0ss
     static {
         try {
             Blnk = ImageIO.read(ShipButton.class.getResource("img//blank.png"));
@@ -42,6 +43,9 @@ class ShipButton extends JButton {
         currentImg = img;
     }
     private void updateImg() {
+        //logic to update the pic
+        //based on the condition
+        //of the thing
         int x = this.x-1;
         int y = this.y-1;
         String status;
@@ -79,6 +83,6 @@ class ShipButton extends JButton {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         updateImg();
-        g.drawImage(currentImg,getWidth()/2-30,getHeight()/2-30,null);
+        g.drawImage(currentImg,0,0,null);
     }
 }

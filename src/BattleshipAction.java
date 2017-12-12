@@ -18,7 +18,11 @@ class BattleshipAction extends AbstractAction {
     public void actionPerformed(ActionEvent e) {
         synchronized(ancestor.outp) {
             try {
-            ancestor.outp.write(msg.getBytes(),0,msg.getBytes().length);
+                //put message as input
+                //TODO: have reference to the output stream\
+                //and not the ancestor component of the button\
+                //that this action is attached to
+                ancestor.outp.write(msg.getBytes(),0,msg.getBytes().length);
             }
             catch (Exception ex) {}
         }
