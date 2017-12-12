@@ -42,7 +42,14 @@ class ShipButton extends JButton {
         currentImg = img;
     }
     private void updateImg() {
+        int x = this.x-1;
+        int y = this.y-1;
         String status;
+        if (ship == null) {
+            this.setImg(Blnk);
+            this.setIcon(Blank);
+            return;
+        }
         if (isComp) {
             status = ship.guessBoard[x][y];
             if (status.equals("O")) {
@@ -57,10 +64,7 @@ class ShipButton extends JButton {
             }
         } else {
             status = ship.playerBoard[x][y];
-            if (status == null) {
-                this.setIcon(Blank);
-                this.setImg(Blnk); 
-            } else if (status.equals("*") 
+            if (status.equals("*") 
              || status.equals("X")) {
                 this.setIcon(ShipToken);
                 if (status.equals("X"))

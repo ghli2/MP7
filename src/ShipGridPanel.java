@@ -10,32 +10,32 @@ class ShipGridPanel extends JPanel {
     final boolean isComp;
     Battleship ship;
     ShipButton[][] buttons;
-
-    ShipGridPanel(int x, int y, Battleship b, boolean comp) {
+    GraphicalWrapper parent;
+    
+    ShipGridPanel(int x, int y, Battleship b, boolean comp, GraphicalWrapper parent) {
         this.setLayout(new GridLayout(x,y));
         ship = b;
         W = x;
         H = y;
         isComp = comp;
         buttons = new ShipButton[W][H];
+        this.parent = parent;
         initButtons();
     }
+    void setShip(Battleship ship) {
+        this.ship = ship;
+        for (ShipButton[] row : buttons)
+            for (ShipButton b: row)
+                b.ship = ship;
+        repaint();
+    }
     private void initButtons() {
-        for (int i = 0; i < W; ++i)
-            for (int j = 0; j < H; ++j) {
-                this.add(new ShipButton(i,j,ship, isComp, new Temp(i,j)));
+        for (int j = 1; j <= W; ++j)
+            for (int i = 1; i <= H; ++i) {
+                ShipButton temp = new ShipButton(i,j,ship, isComp, new BattleshipAction(i,j,isComp,parent));
+                buttons[i-1][j-1] = temp;
+                this.add(temp);
             }
                 
     }
-    class Temp extends AbstractAction {
-        int x,y;
-        Temp(int x, int y) {
-            this.x=x;this.y=y;
-        }
-        public void actionPerformed(ActionEvent e) {
-            //this gets called every time the button is pressed
-            //modify as you see fit
-            System.out.printf("(%d,%d)\n", x,y);
-        }
-    }
-}
+ }

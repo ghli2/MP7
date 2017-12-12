@@ -3,6 +3,7 @@ import javax.imageio.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
+import java.io.*;
 class GraphicalWrapper {
     static final int W = 6, H = 6;
     javax.swing.Timer refreshTimer;
@@ -16,7 +17,7 @@ class GraphicalWrapper {
     JButton start;
     JButton instructions;
     JButton credits;
-    Object[] optionStack;
+    JButton quit;
     Action menuAction;
 
     JPanel gameContainer;
@@ -24,12 +25,23 @@ class GraphicalWrapper {
     JPanel playerGrid;
     
     Battleship computer;
+    Battleship player;
 
+    PipedOutputStream outp = new PipedOutputStream();
+    PipedInputStream in;
+    
+    CustomOutputStream out;
+    int vertical = 0;
     GraphicalWrapper() {
+        try{
+        in = new PipedInputStream(outp); 
+        }catch(IOException e){}
+        System.setIn(in);
+
         computer = new Battleship();
 
         frame = new JFrame();
-        frame.setSize(1400,700);
+        frame.setSize(1800,600);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setTitle("Battleship");
         
@@ -41,30 +53,32 @@ class GraphicalWrapper {
                 ((CardLayout)mainPanel.getLayout()).show(mainPanel, "game");
             }
         });
-        
-        instructions = new JButton(new AbstractAction() {
+        start.addActionListener(new AbstractAction() {
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(menu,"In the placement phase, select a square and a direction to place you battleships on the left side.\nIn the battle phase, select a location to attack on the right side.\nPress \"m\" for menu during the game.","Instructions",JOptionPane.INFORMATION_MESSAGE,null);
-            }
-        });
-        credits = new JButton(new AbstractAction() {
-            public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(menu,"Graphics: George Li\nBattleship Logic: Michael Rivkin\nLiscenced under the GPLv3 2017","Credits",JOptionPane.INFORMATION_MESSAGE,null);
+                vertical = 1-JOptionPane.showOptionDialog(gameContainer,"Please help me all the code is malformed, would you like your ship to be vertical?","",JOptionPane.PLAIN_MESSAGE,0,null,new String[] {"Vertical","Horizontal"},"Vertical");
+                System.out.println(vertical);
             }
         });
 
-        optionStack = new Object[] {instructions, credits}; 
-        menuAction = new AbstractAction() {
+        instructions = new JButton(new InfoButtonAction(menu,"In the placement phase, select a square and a direction to place you battleships on the left side.\nIn the battle phase, select a location to attack on the right side.\nPress \"m\" for menu during the game.\nPLEASE don't press the buttons too fast.","Instructions",JOptionPane.INFORMATION_MESSAGE));
+
+        credits = new JButton(new InfoButtonAction(menu,
+"Graphics: George Li\nBattleship Logic: Michael Rivkin\nLiscenced under the GPLv3 2017","Credits",JOptionPane.INFORMATION_MESSAGE));
+        
+        quit = new JButton(new AbstractAction() {
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(menu,optionStack,"Menu",JOptionPane.PLAIN_MESSAGE,null);
+                System.exit(0);
             }
-        };
+        });
+
+        menuAction = new InfoButtonAction(menu,new Object[] {instructions, credits, quit},"Menu",JOptionPane.PLAIN_MESSAGE);
 
 
 
         start.setText("Start");
         instructions.setText("Instructions");
         credits.setText("Credits");
+        quit.setText("Quit");
 
         menu = new JPanel();
 
@@ -76,15 +90,26 @@ class GraphicalWrapper {
         menu.add(start, saneMenuConstraints);
         menu.add(instructions, saneMenuConstraints);
         menu.add(credits, saneMenuConstraints);
+        menu.add(quit, saneMenuConstraints);
                 
         gameContainer = new JPanel();
-        gameContainer.setLayout(new GridLayout(1,2));
+        gameContainer.setLayout(new GridLayout(1,3));
 
-        computerGrid = new ShipGridPanel(W, H, computer, true);
-        playerGrid = new ShipGridPanel(W, H, computer, false);
+        computerGrid = new ShipGridPanel(W, H, computer, true, this);
+        playerGrid = new ShipGridPanel(W, H, null, false, this);
+
+        JTextArea textArea = new JTextArea(50,10);
+        textArea.setEditable(false);
+        out = new CustomOutputStream(textArea);
+        PrintStream printStream = new PrintStream(out);
+        System.setOut(printStream);
+        System.setErr(printStream);        
+        System.out.println("Debug Only, Do not mind.");
+
 
         gameContainer.add(playerGrid);
         gameContainer.add(computerGrid);
+        gameContainer.add(textArea);
         gameContainer.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("M"), "menuPopup");
         gameContainer.getActionMap().put("menuPopup", menuAction);
 
@@ -93,12 +118,20 @@ class GraphicalWrapper {
         
         frame.add(mainPanel);
     }
-    private void gameStart() {
-        show();
-        //game code here 
-    }
     private void show() {
         frame.setVisible(true);
+        Thread t = new Thread(new Runnable() {
+            public void run() {
+                Scanner s = new Scanner(System.in);
+                while (true) {
+                    try{
+                        System.out.println(s.nextLine());
+                    }
+                    catch(Exception e){}
+                }
+            }
+        });
+        t.start();
     }
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
@@ -108,3 +141,5 @@ class GraphicalWrapper {
         });
     }
  }
+
+
