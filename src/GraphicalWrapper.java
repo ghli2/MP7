@@ -60,7 +60,7 @@ class GraphicalWrapper {
             }
         });
 
-        instructions = new JButton(new InfoButtonAction(menu,"In the placement phase, select a square and a direction to place you battleships on the left side.\nIn the battle phase, select a location to attack on the right side.\nPress \"m\" for menu during the game.\nPLEASE don't press the buttons too fast.","Instructions",JOptionPane.INFORMATION_MESSAGE));
+        instructions = new JButton(new InfoButtonAction(menu,"In the placement phase, select a square to place you battleship on the left grid.\nIn the battle phase, select a location to attack on the right grid.\nPress \"m\" for menu during the game.\nPLEASE don't press the buttons too fast.","Instructions",JOptionPane.INFORMATION_MESSAGE));
 
         credits = new JButton(new InfoButtonAction(menu,
 "Graphics: George Li\nBattleship Logic: Michael Rivkin\nLiscenced under the GPLv3 2017","Credits",JOptionPane.INFORMATION_MESSAGE));
@@ -110,6 +110,7 @@ class GraphicalWrapper {
         gameContainer.add(playerGrid);
         gameContainer.add(computerGrid);
         gameContainer.add(textArea);
+        gameContainer.add(new JScrollPane(textArea));
         gameContainer.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("M"), "menuPopup");
         gameContainer.getActionMap().put("menuPopup", menuAction);
 
@@ -122,6 +123,7 @@ class GraphicalWrapper {
         frame.setVisible(true);
         Thread t = new Thread(new Runnable() {
             public void run() {
+//<<<<<<< put game code here
                 Scanner s = new Scanner(System.in);
                 while (true) {
                     try{
@@ -129,6 +131,7 @@ class GraphicalWrapper {
                     }
                     catch(Exception e){}
                 }
+//>>>>>>>
             }
         });
         t.start();
