@@ -205,8 +205,8 @@ public class Battleship
                     {
                         System.out.println("Computer hit!");
                         player.playerBoard[computerGuessX][computerGuessY] = "X";
-                        System.out.println("Here is your board:");
-                        player.printPlayerBoard();
+//                        System.out.println("Here is your board:");
+//                        player.printPlayerBoard();
                         //below is to avoid adjacent guesses
                         if(computerGuessY!=5)
                         {

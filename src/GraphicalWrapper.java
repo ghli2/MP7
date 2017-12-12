@@ -80,7 +80,7 @@ class GraphicalWrapper {
         //button initialization
         start.addActionListener(new AbstractAction() {
             public void actionPerformed(ActionEvent e) {
-                vertical = 1-JOptionPane.showOptionDialog(gameContainer,"Please help me all the code is malformed, would you like your ship to be vertical?","",JOptionPane.PLAIN_MESSAGE,0,null,new String[] {"Vertical","Horizontal"},"Vertical");
+                vertical = 1-JOptionPane.showOptionDialog(gameContainer,"Would you like your ship to be vertical?","",JOptionPane.PLAIN_MESSAGE,0,null,new String[] {"Vertical","Horizontal"},"Vertical");
                 System.out.println(vertical);
             }
         });
@@ -140,7 +140,7 @@ class GraphicalWrapper {
         PrintStream printStream = new PrintStream(out);
         System.setOut(printStream);
         System.setErr(printStream);        
-        System.out.println("Debug Only, Do not mind.");
+        System.out.println("");
 
 
         //added relevant components to
@@ -211,7 +211,7 @@ class GraphicalWrapper {
 		        	//player guess and move
 		            while(count2 == 0) {
                         gameContainer.repaint();
-		                System.out.print("Select your guess");
+		                System.out.println("Select your guess");
                         gameContainer.repaint();
                         while((location = in.next()).charAt(0) != 'C');
 		                i = nxConverter(location);
